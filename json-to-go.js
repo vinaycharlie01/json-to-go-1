@@ -444,23 +444,33 @@ function jsonToGo(json, typename, flatten = true, example = false, allOmitempty 
 }
 
 if (typeof module != 'undefined') {
-    if (!module.parent) {
-        if (process.argv.length > 2 && process.argv[2] === '-big') {
-            bufs = []
-            process.stdin.on('data', function(buf) {
-                bufs.push(buf)
-            })
-            process.stdin.on('end', function() {
-                const json = Buffer.concat(bufs).toString('utf8')
-                console.log(jsonToGo(json).go)
-            })
-        } else {
-            process.stdin.on('data', function(buf) {
-                const json = buf.toString('utf8')
-                console.log(jsonToGo(json).go)
-            })
-        }
-    } else {
-        module.exports = jsonToGo
-    }
+
+	// Example JSON data
+const jsonData = '{"name": "John", "age": {"a":10}, "isStudent": false, "grades": [90, 85, 92]}';
+
+// Call the jsonToGo function
+const result = jsonToGo(jsonData, "MyStruct", false, false, false);
+
+// Print the result
+console.log(result.go);
+
+    // if (!module.parent) {
+    //     if (process.argv.length > 2 && process.argv[2] === '-big') {
+    //         bufs = []
+    //         process.stdin.on('data', function(buf) {
+    //             bufs.push(buf)
+    //         })
+    //         process.stdin.on('end', function() {
+    //             const json = Buffer.concat(bufs).toString('utf8')
+    //             console.log(jsonToGo(json).go)
+    //         })
+    //     } else {
+    //         process.stdin.on('data', function(buf) {
+    //             const json = buf.toString('utf8')
+    //             console.log(jsonToGo(json).go)
+    //         })
+    //     }
+    // } else {
+    //     module.exports = jsonToGo
+    // }
 }

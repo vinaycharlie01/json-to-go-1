@@ -137,6 +137,7 @@ function test(includeExampleData) {
 
   for (const testCase of testCases) {
     const got = jsonToGo(testCase.input, null, null, includeExampleData);
+    console.log(got.go.);
     if (got.error) {
       console.assert(!got.error, `format('${testCase.input}'): ${got.error}`);
     } else {
